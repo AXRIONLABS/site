@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AXRION LABS — Бесплатные VPN конфиги</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b7aff' stroke-width='2'><path d='M12 2v4M6 6h12v14a2 2 0 01-2 2H8a2 2 0 01-2-2V6z'/><path d='M10 11h4'/><path d='M10 15h4'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #08080f;
+  --bg2: #0d0b1a;
+  --card: rgba(124,106,255,0.04);
+  --card-hover: rgba(124,106,255,0.08);
+  --card-border: rgba(124,106,255,0.1);
+  --accent: #8b7aff;
+  --accent2: #a78bfa;
+  --accent3: #7c3aed;
+  --text: #e8e8f0;
+  --text2: #9898c0;
+  --glass: rgba(124,106,255,0.03);
+  --radius: 16px;
+  --shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image:
+    linear-gradient(rgba(124,106,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124,106,255,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: -30%;
+  left: -10%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(124,106,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrapper { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 24px 16px; }
+
+/* Header */
+.header { text-align: center; padding: 32px 0 24px; }
+
+.logo {
+  font-size: 30px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  text-shadow: 0 0 40px rgba(139,122,255,0.3);
+}
+
+.subtitle { color: var(--text2); font-size: 14px; margin-top: 6px; font-weight: 400; }
+.header-links { display: flex; justify-content: center; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent3));
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(124,106,255,0.3);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,122,255,0.5); }
+
+.btn-secondary {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--card-border);
+}
+.btn-secondary:hover { background: var(--card-hover); transform: translateY(-1px); }
+
+.btn-tg {
+  background: linear-gradient(135deg, #7c3aed, #8b7aff);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(124,58,237,0.3);
+}
+.btn-tg:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(124,58,237,0.5); }
+
+.btn-sm { padding: 6px 14px; font-size: 12px; }
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 24px;
+  background: var(--glass);
+  border-radius: 14px;
+  padding: 4px;
+  border: 1px solid var(--card-border);
+}
+
+.tab-btn {
+  flex: 1;
+  max-width: 200px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  color: var(--text2);
+}
+
+.tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.tab-btn.active { background: var(--card); color: var(--text); border: 1px solid var(--card-border); }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Stats */
+.stats {
+  display: flex; justify-content: center; gap: 32px;
+  padding: 20px 24px; background: var(--glass);
+  border-radius: var(--radius); border: 1px solid var(--card-border);
+  margin-bottom: 24px; flex-wrap: wrap;
+}
+
+.stat-item { text-align: center; }
+.stat-value { font-size: 28px; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-label { font-size: 12px; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+/* Subscription URL */
+.sub-box {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+
+.sub-box-title { font-size: 14px; font-weight: 600; color: var(--text2); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+
+.sub-url-row { display: flex; gap: 8px; }
+
+.sub-url-row input {
+  flex: 1; background: var(--bg); border: 1px solid var(--card-border);
+  border-radius: 8px; padding: 10px 14px; color: var(--text2);
+  font-size: 13px; font-family: 'Courier New', monospace; outline: none;
+  transition: border-color 0.3s;
+}
+.sub-url-row input:focus { border-color: var(--accent); }
+
+/* Loading / Error */
+.state-box { text-align: center; padding: 60px 20px; color: var(--text2); }
+
+.spinner {
+  width: 40px; height: 40px; border: 3px solid var(--card-border);
+  border-top-color: var(--accent); border-radius: 50%;
+  animation: spin 0.8s linear infinite; margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.error-box {
+  text-align: center; padding: 40px 20px;
+  background: rgba(255,50,50,0.1); border: 1px solid rgba(255,50,50,0.2);
+  border-radius: var(--radius); color: #ff6b6b; margin-bottom: 24px;
+}
+.error-box h3 { font-size: 18px; margin-bottom: 8px; }
+.error-box p { font-size: 14px; opacity: 0.8; }
+.error-box .btn { margin-top: 16px; }
+
+/* Country section */
+.country-section { margin-bottom: 28px; }
+
+.country-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 0; margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.country-flag { font-size: 28px; line-height: 1; }
+.country-name { font-size: 18px; font-weight: 700; }
+.country-count {
+  font-size: 13px; color: var(--text2); font-weight: 400;
+  margin-left: auto; background: var(--card); padding: 2px 12px; border-radius: 100px;
+}
+
+/* Config card */
+.config-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+.config-card:hover {
+  background: var(--card-hover);
+  border-color: rgba(139,122,255,0.2);
+  transform: translateX(4px);
+}
+
+.config-top { display: flex; align-items: flex-start; gap: 12px; }
+
+.config-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.config-icon.vless { background: rgba(124,106,255,0.15); }
+.config-icon.ss { background: rgba(0,212,255,0.15); }
+
+.config-info { flex: 1; min-width: 0; }
+.config-proto { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+.config-proto.vless { color: var(--accent); }
+.config-proto.ss { color: var(--accent2); }
+
+.config-server {
+  font-size: 13px; color: var(--text2);
+  font-family: 'Courier New', monospace; word-break: break-all;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.config-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+
+.tag {
+  font-size: 10px; font-weight: 600; padding: 2px 8px;
+  border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px;
+}
+.tag-tls { background: rgba(139,122,255,0.12); color: var(--accent); }
+.tag-ws { background: rgba(124,58,237,0.12); color: var(--accent3); }
+.tag-grpc { background: rgba(167,139,250,0.12); color: var(--accent2); }
+.tag-reality { background: rgba(196,181,253,0.12); color: #c4b5fd; }
+.tag-tcp { background: rgba(255,100,100,0.12); color: #ff6464; }
+
+.config-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-left: auto; }
+.config-actions .btn { padding: 6px 14px; font-size: 12px; }
+
+/* Modal */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+  z-index: 1000; align-items: center; justify-content: center;
+}
+.modal-overlay.active { display: flex; }
+
+.modal {
+  background: var(--bg2); border: 1px solid var(--card-border);
+  border-radius: var(--radius); padding: 32px;
+  max-width: 360px; width: 90%; text-align: center; box-shadow: var(--shadow);
+}
+.modal h3 { font-size: 18px; margin-bottom: 4px; }
+.modal p { color: var(--text2); font-size: 13px; margin-bottom: 20px; }
+#qrcode { display: inline-block; padding: 12px; background: #fff; border-radius: 12px; }
+#qrcode img { display: block; border-radius: 8px; }
+.modal-close { margin-top: 20px; width: 100%; }
+
+/* TG Promo */
+.tg-promo {
+  background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(139,122,255,0.05));
+  border: 1px solid rgba(124,58,237,0.15); border-radius: var(--radius);
+  padding: 32px; text-align: center; margin-bottom: 32px;
+}
+.tg-promo-icon { font-size: 48px; margin-bottom: 12px; }
+.tg-promo h2 { font-size: 22px; margin-bottom: 8px; }
+.tg-promo p { color: var(--text2); font-size: 14px; margin-bottom: 20px; max-width: 400px; margin-left: auto; margin-right: auto; }
+
+.import-section { margin-bottom: 32px; }
+
+/* Footer */
+.footer { text-align: center; padding: 24px 0; color: var(--text2); font-size: 13px; border-top: 1px solid var(--card-border); }
+.footer a { color: var(--accent); text-decoration: none; }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--bg2); border: 1px solid var(--card-border);
+  padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 500;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  opacity: 0; transition: all 0.4s ease; z-index: 2000; pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Animations */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.config-card { animation: fadeInUp 0.4s ease forwards; }
+
+/* RGB подсветка */
+@keyframes rgb-border {
+  0% { border-color: #ff0000; box-shadow: 0 0 20px rgba(255,0,0,0.2); }
+  16% { border-color: #ff8800; box-shadow: 0 0 20px rgba(255,136,0,0.2); }
+  33% { border-color: #ffff00; box-shadow: 0 0 20px rgba(255,255,0,0.2); }
+  50% { border-color: #00ff00; box-shadow: 0 0 20px rgba(0,255,0,0.2); }
+  66% { border-color: #0088ff; box-shadow: 0 0 20px rgba(0,136,255,0.2); }
+  83% { border-color: #8800ff; box-shadow: 0 0 20px rgba(136,0,255,0.2); }
+  100% { border-color: #ff0000; box-shadow: 0 0 20px rgba(255,0,0,0.2); }
+}
+.guide-active .guide-content { animation: rgb-border 2s linear infinite; border-width: 1.5px; border-style: solid; }
+
+#toggleGuideBtn { transition: all 0.3s ease; }
+#toggleGuideBtn.guide-active {
+  background: linear-gradient(135deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #8800ff);
+  background-size: 300% 300%; animation: rgb-shift 2s linear infinite;
+  color: #fff; border: none; box-shadow: 0 0 20px rgba(255,0,0,0.3);
+}
+@keyframes rgb-shift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+/* Proxy Checker */
+.checker-box { text-align: center; padding: 40px 20px; margin-bottom: 24px; }
+
+.checker-box textarea {
+  width: 100%; max-width: 500px; height: 180px;
+  background: var(--bg); border: 1px solid var(--card-border);
+  border-radius: 12px; padding: 16px; color: var(--text);
+  font-size: 13px; font-family: 'Courier New', monospace;
+  resize: vertical; outline: none; transition: border-color 0.3s; margin-bottom: 16px;
+}
+.checker-box textarea:focus { border-color: var(--accent); }
+.checker-box textarea::placeholder { color: var(--text2); opacity: 0.5; }
+.checker-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.checker-status { font-size: 13px; color: var(--text2); margin: 12px 0; }
+
+.proxy-table { width: 100%; border-collapse: separate; border-spacing: 0 4px; }
+.proxy-table th {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--text2); padding: 8px 12px; text-align: left; font-weight: 600;
+}
+.proxy-table td {
+  padding: 10px 12px; font-size: 13px;
+  background: var(--card); border: 1px solid var(--card-border);
+}
+.proxy-table tr td:first-child { border-radius: 8px 0 0 8px; }
+.proxy-table tr td:last-child { border-radius: 0 8px 8px 0; }
+
+.proxy-status { font-weight: 700; }
+.proxy-status.working { color: var(--accent); }
+.proxy-status.error { color: #ff5252; }
+.proxy-status.checking { color: #ffd740; }
+
+.proxy-ping { font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700; }
+.proxy-ping.fast { color: var(--accent); }
+.proxy-ping.medium { color: var(--accent2); }
+.proxy-ping.slow { color: #ff5252; }
+.proxy-ping.na { color: var(--text2); }
+
+.tg-link-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; background: linear-gradient(135deg, #7c3aed, #8b7aff);
+  color: #fff; border-radius: 6px; font-size: 12px; font-weight: 600;
+  text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer; font-family: inherit;
+}
+.tg-link-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,58,237,0.4); }
+
+.feather { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; }
+.btn .feather { width: 16px; height: 16px; }
+.btn-sm .feather { width: 14px; height: 14px; }
+.config-icon .feather { width: 20px; height: 20px; }
+.tab-btn .feather { width: 16px; height: 16px; margin-right: 4px; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .wrapper { padding: 16px 12px; }
+  .header { padding: 24px 0; }
+  .logo { font-size: 24px; }
+  .stats { gap: 20px; padding: 16px; }
+  .stat-value { font-size: 22px; }
+  .sub-box { padding: 16px; }
+  .sub-url-row { flex-direction: column; }
+  .config-top { flex-direction: column; }
+  .config-actions { margin-top: 10px; margin-left: 0; }
+  .tg-promo { padding: 24px 16px; }
+  .tg-promo h2 { font-size: 18px; }
+  .proxy-table { font-size: 12px; }
+  .proxy-table td, .proxy-table th { padding: 8px; }
+  .mtproto-table td, .mtproto-table th { padding: 8px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper" id="app">
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">𝐀𝐗𝐑𝐈𝐎𝐍 𝐋𝐀𝐁𝐒</div>
+    <p class="subtitle">Бесплатные VPN конфиги и прокси чекер</p>
+    <div class="header-links">
+      <a href="https://t.me/AXRION_LABS" target="_blank" class="btn btn-tg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2.5L2 11.5l7 2.5 3 7 9.5-18.5z"/><path d="M12 14l4-4"/></svg>
+        @AXRION_LABS
+      </a>
+      <a href="https://github.com/AXRIONLABS/VPN" target="_blank" class="btn btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="vpn" onclick="switchTab('vpn')"><i data-feather="lock"></i> VPN</button>
+    <button class="tab-btn" data-tab="proxy" onclick="switchTab('proxy')"><i data-feather="globe"></i> Прокси</button>
+    <button class="tab-btn" data-tab="mtproto" onclick="switchTab('mtproto')"><i data-feather="smartphone"></i> MTProto</button>
+  </div>
+
+  <!-- Tab: VPN -->
+  <div id="tab-vpn" class="tab-content active">
+    <div class="stats" id="stats">
+      <div class="stat-item"><div class="stat-value" id="serverCount">0</div><div class="stat-label">Серверов</div></div>
+      <div class="stat-item"><div class="stat-value" id="countryCount">0</div><div class="stat-label">Стран</div></div>
+      <div class="stat-item"><div class="stat-value" id="updateTime">—</div><div class="stat-label">Обновлено</div></div>
+    </div>
+
+    <div class="sub-box">
+      <div class="sub-box-title"><i data-feather="link" style="width:14px;height:14px"></i> Ссылка на подписку (для импорта в клиенты)</div>
+      <div class="sub-url-row">
+        <input type="text" id="subUrlInput" readonly value="https://raw.githubusercontent.com/AXRIONLABS/VPN/refs/heads/main/VPN-%40AXRION_LABS.txt">
+        <button class="btn btn-primary btn-sm" onclick="copySubUrl()" style="white-space:nowrap"><i data-feather="copy" style="width:14px;height:14px"></i> Копировать</button>
+      </div>
+    </div>
+
+    <div id="loadingState" class="state-box">
+      <div class="spinner"></div>
+      <p>Загрузка конфигов...</p>
+    </div>
+
+    <div id="errorState" class="error-box" style="display:none">
+      <h3>⚠️ Ошибка загрузки</h3>
+      <p id="errorMessage">Не удалось получить конфиги. Попробуйте позже.</p>
+      <button class="btn btn-primary btn-sm" onclick="fetchConfigs()">Повторить</button>
+    </div>
+
+    <div style="text-align:center;margin-bottom:16px">
+      <button class="btn btn-secondary" id="toggleGuideBtn" onclick="toggleGuide()" style="font-size:15px;padding:10px 32px"><i data-feather="book-open" style="width:16px;height:16px"></i> Инструкция</button>
+    </div>
+
+    <div id="importGuide" class="import-section" style="display:none">
+      <div class="sub-box guide-content">
+        <div class="sub-box-title"><i data-feather="tool" style="width:14px;height:14px"></i> Импорт отдельного конфига вручную</div>
+        <p style="color:var(--text2);font-size:14px;margin-bottom:14px;line-height:1.6">Если твой клиент не поддерживает подписки (или нужен только один сервер), используй ручной импорт:</p>
+        <ol style="color:var(--text2);font-size:14px;line-height:1.8;padding-left:20px">
+          <li>Найди нужный сервер в списке ниже (по стране)</li>
+          <li>Нажми <strong>📋</strong> (копировать) рядом с сервером</li>
+          <li>Открой свой VPN-клиент</li>
+          <li>Нажми <strong>"+"</strong> → <strong>"Import"</strong></li>
+          <li>Готово — можно подключаться</li>
+        </ol>
+      </div>
+      <div class="sub-box guide-content" style="margin-top:12px">
+        <div class="sub-box-title"><i data-feather="smartphone" style="width:14px;height:14px"></i> Импорт через QR-код</div>
+        <p style="color:var(--text2);font-size:14px;margin-bottom:14px;line-height:1.6">Для мобильных клиентов удобно использовать QR-код:</p>
+        <ol style="color:var(--text2);font-size:14px;line-height:1.8;padding-left:20px">
+          <li>Найди нужный сервер в списке ниже (по стране)</li>
+          <li>Нажми <strong>📲</strong> (QR) рядом с сервером</li>
+          <li>Откроется окно с QR-кодом</li>
+          <li>Открой VPN-клиент на телефоне</li>
+          <li>Выбери <strong>"Scan QR"</strong> или <strong>"Сканировать"</strong></li>
+          <li>Наведи камеру на экран — конфиг добавится автоматически</li>
+        </ol>
+      </div>
+    </div>
+
+    <div id="configsContainer" style="display:none"></div>
+
+    <div id="tgPromo" class="tg-promo" style="display:none">
+      <div class="tg-promo-icon"><i data-feather="send" style="width:48px;height:48px;color:var(--accent)"></i></div>
+      <h2>Подпишись на @AXRION_LABS</h2>
+      <p>Актуальные VPN конфиги, свежие обновления и поддержка. Присоединяйся к нашему сообществу!</p>
+      <div class="header-links">
+        <a href="https://t.me/AXRION_LABS" target="_blank" class="btn btn-tg"><i data-feather="send" style="width:16px;height:16px"></i> Подписаться</a>
+        <a href="https://t.me/+3A6i9WwfsfxmOTky" target="_blank" class="btn btn-secondary"><i data-feather="message-circle" style="width:16px;height:16px"></i> Чат поддержки</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Прокси чекер -->
+  <div id="tab-proxy" class="tab-content">
+    <div class="checker-box">
+      <p style="color:var(--text2);font-size:14px;margin-bottom:16px">Вставь прокси (ip:port) — по одному на строку:</p>
+      <textarea id="proxyInput" placeholder="192.168.1.1:8080&#10;10.0.0.1:3128&#10;socks5://1.2.3.4:1080"></textarea>
+      <div class="checker-actions">
+        <button class="btn btn-primary" onclick="checkProxies()"><i data-feather="send" style="width:16px;height:16px"></i> Проверить</button>
+        <button class="btn btn-secondary" onclick="document.getElementById('proxyInput').value = ''; document.getElementById('proxyResults').innerHTML = ''; document.getElementById('proxyStatus').textContent = '';"><i data-feather="trash-2" style="width:16px;height:16px"></i> Очистить</button>
+      </div>
+      <div class="checker-status" id="proxyStatus"></div>
+    </div>
+    <div id="proxyResults"></div>
+  </div>
+
+  <!-- Tab: MTProto -->
+  <div id="tab-mtproto" class="tab-content">
+    <div class="checker-box">
+      <p style="color:var(--text2);font-size:14px;margin-bottom:6px">Вставь MTProto прокси (tg:// ссылки или ip:port:secret) — по одному на строку:</p>
+      <p style="color:var(--text2);font-size:12px;margin-bottom:16px;opacity:0.7"><i data-feather="alert-triangle" style="width:12px;height:12px;vertical-align:-2px"></i> Чекер работает неточно. Если прокси работает в Telegram — не обращай внимания на результат проверки.</p>
+      <textarea id="mtprotoInput" placeholder="tg://proxy?server=1.2.3.4&port=443&secret=eeabcd...&#10;5.6.7.8:443:ddsecrethex"></textarea>
+      <div class="checker-actions">
+        <button class="btn btn-primary" onclick="checkMTProto()"><i data-feather="send" style="width:16px;height:16px"></i> Проверить</button>
+        <button class="btn btn-secondary" onclick="document.getElementById('mtprotoInput').value = ''; document.getElementById('mtprotoResults').innerHTML = ''; document.getElementById('mtprotoStatus').textContent = '';"><i data-feather="trash-2" style="width:16px;height:16px"></i> Очистить</button>
+      </div>
+      <div class="checker-status" id="mtprotoStatus"></div>
+    </div>
+    <div id="mtprotoResults"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Powered by <a href="https://t.me/AXRION_LABS" target="_blank">@AXRION_LABS</a> • Бесплатные VPN конфиги</p>
+  </footer>
+</div>
+
+<!-- QR Modal -->
+<div class="modal-overlay" id="qrModal">
+  <div class="modal">
+    <h3>📲 QR-код</h3>
+    <p id="qrLabel">Отсканируй в приложении VPN</p>
+    <div id="qrcode"></div>
+    <button class="btn btn-secondary modal-close" onclick="closeQR()">Закрыть</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">Скопировано!</div>
+
+<script>
+const CONFIG_URL = 'https://raw.githubusercontent.com/AXRIONLABS/VPN/refs/heads/main/VPN-%40AXRION_LABS.txt';
+
+const countryNames = {
+  '🇷🇺':'Россия','🇸🇪':'Швеция','🇳🇱':'Нидерланды','🇺🇸':'США','🇷🇸':'Сербия',
+  '🇩🇪':'Германия','🇵🇱':'Польша','🇦🇪':'ОАЭ','🇬🇧':'Великобритания','🇫🇷':'Франция',
+  '🇨🇦':'Канада','🇸🇬':'Сингапур','🇮🇳':'Индия','🇯🇵':'Япония','🇦🇺':'Австралия',
+  '🇨🇭':'Швейцария','🇳🇴':'Норвегия','🇫🇮':'Финляндия','🇩🇰':'Дания','🇪🇸':'Испания',
+  '🇮🇹':'Италия','🇧🇬':'Болгария','🇨🇿':'Чехия','🇷🇴':'Румыния','🇹🇷':'Турция',
+  '🇺🇦':'Украина','🇰🇿':'Казахстан','🇯🇴':'Иордания',
+};
+
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector('.tab-btn[data-tab="' + name + '"]').classList.add('active');
+}
+
+function detectFlags(text) { return text.match(/[\u{1F1E6}-\u{1F1FF}]{2}/gu) || []; }
+
+function parseConfigs(text) {
+  const lines = text.split('\n');
+  const configs = [];
+  let currentCountry = null;
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+    const countryMarker = trimmed.match(/^#([\u{1F1E6}-\u{1F1FF}]{2})/u);
+    if (countryMarker) { currentCountry = countryMarker[1]; continue; }
+    if (trimmed.startsWith('vless://') || trimmed.startsWith('ss://')) {
+      const protocol = trimmed.startsWith('vless://') ? 'VLESS' : 'Shadowsocks';
+      const namePart = trimmed.split('#')[1] || '';
+      const flags = detectFlags(namePart);
+      const country = flags.length > 0 ? flags[0] : currentCountry;
+      let host = '', port = '', params = {};
+      try {
+        const body = trimmed.split('#')[0];
+        if (protocol === 'VLESS') {
+          const afterProto = body.slice(8);
+          const atIdx = afterProto.indexOf('@');
+          if (atIdx > -1) {
+            const afterAt = afterProto.slice(atIdx + 1);
+            const colonIdx = afterAt.indexOf(':');
+            const qIdx = afterAt.indexOf('?');
+            if (qIdx > -1) {
+              host = afterAt.slice(0, colonIdx > -1 && colonIdx < qIdx ? colonIdx : qIdx);
+              port = afterAt.slice((colonIdx > -1 && colonIdx < qIdx ? colonIdx + 1 : 0), qIdx);
+              const qs = new URLSearchParams(afterAt.slice(qIdx + 1));
+              qs.forEach((v, k) => params[k] = v);
+            } else if (colonIdx > -1) { host = afterAt.slice(0, colonIdx); port = afterAt.slice(colonIdx + 1); }
+          }
+        } else {
+          const afterProto = body.slice(5);
+          const atIdx = afterProto.indexOf('@');
+          if (atIdx > -1) { host = afterProto.slice(atIdx + 1).split(':')[0]; port = afterProto.slice(atIdx + 1).split(':')[1] || ''; }
+        }
+      } catch(e) {}
+      const tags = [];
+      if (params.security === 'tls' || params.security === 'reality') tags.push(params.security);
+      if (params.type) tags.push(params.type);
+      if (params.network) tags.push(params.network);
+      if (params.encryption && params.encryption !== 'none') tags.push(params.encryption);
+      const cleanName = namePart.replace(/[\u{1F1E6}-\u{1F1FF}]{2}/gu, '').replace(/TG:\s*@AXRION_LABS/g, '').trim();
+      configs.push({ raw: trimmed, protocol, country: country || '🌍', host, port, name: cleanName || protocol, tags, params });
+    }
+  }
+  const grouped = {};
+  for (const c of configs) { if (!grouped[c.country]) grouped[c.country] = []; grouped[c.country].push(c); }
+  const order = ['🇷🇺','🇸🇪','🇳🇱','🇺🇸','🇩🇪','🇷🇸','🇵🇱','🇦🇪','🇬🇧','🇫🇷','🇨🇦','🇸🇬','🇮🇳','🇯🇵','🇦🇺'];
+  const sorted = Object.entries(grouped).sort((a, b) => {
+    const ia = order.indexOf(a[0]), ib = order.indexOf(b[0]);
+    if (ia > -1 && ib > -1) return ia - ib;
+    if (ia > -1) return -1; if (ib > -1) return 1;
+    return (countryNames[a[0]] || a[0]).localeCompare(countryNames[b[0]] || b[0]);
+  });
+  return { configs, grouped: sorted, total: configs.length, countries: sorted.length };
+}
+
+function toggleGuide() {
+  const guide = document.getElementById('importGuide');
+  const btn = document.getElementById('toggleGuideBtn');
+  const isHidden = guide.style.display === 'none' || guide.style.display === '';
+  guide.style.display = isHidden ? 'block' : 'none';
+  guide.classList.toggle('guide-active', isHidden);
+  btn.classList.toggle('guide-active', isHidden);
+  btn.textContent = isHidden ? '✖ Скрыть инструкцию' : '📋 Инструкция';
+  setTimeout(function() { feather.replace(); }, 50);
+}
+
+function renderConfigs(data) {
+  const container = document.getElementById('configsContainer');
+  container.innerHTML = '';
+  for (const [flag, items] of data.grouped) {
+    const name = countryNames[flag] || 'Другая';
+    const section = document.createElement('div');
+    section.className = 'country-section';
+    section.innerHTML = '<div class="country-header"><span class="country-flag">' + flag + '</span><span class="country-name">' + name + '</span><span class="country-count">' + items.length + ' сервер' + (items.length !== 1 ? 'ов' : '') + '</span></div><div class="config-list"></div>';
+    container.appendChild(section);
+    const list = section.querySelector('.config-list');
+    items.forEach(function(cfg) {
+      const card = document.createElement('div');
+      card.className = 'config-card';
+      const iconClass = cfg.protocol === 'VLESS' ? 'vless' : 'ss';
+      const iconText = cfg.protocol === 'VLESS' ? '<i data-feather="lock"></i>' : '<i data-feather="zap"></i>';
+      const tagsHtml = cfg.tags.map(function(t) { return '<span class="tag tag-' + t + '">' + t + '</span>'; }).join('');
+      const safeRaw = cfg.raw.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      card.innerHTML = '<div class="config-top"><div class="config-icon ' + iconClass + '">' + iconText + '</div><div class="config-info"><div class="config-proto ' + iconClass + '">' + cfg.protocol + '</div><div class="config-server">' + cfg.host + (cfg.port ? ':' + cfg.port : '') + '</div>' + (tagsHtml ? '<div class="config-tags">' + tagsHtml + '</div>' : '') + '</div><div class="config-actions"><button class="btn btn-secondary btn-sm" onclick="copyConfig(this)" data-config="' + safeRaw + '" title="Копировать"><i data-feather="copy"></i></button><button class="btn btn-secondary btn-sm" onclick="showQR(this)" data-config="' + safeRaw + '" title="QR-код"><i data-feather="smartphone"></i></button></div></div>';
+      list.appendChild(card);
+    });
+  }
+}
+
+async function fetchConfigs() {
+  document.getElementById('loadingState').style.display = 'block';
+  document.getElementById('errorState').style.display = 'none';
+  document.getElementById('configsContainer').style.display = 'none';
+  try {
+    const resp = await fetch(CONFIG_URL);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const text = await resp.text();
+    const data = parseConfigs(text);
+    document.getElementById('serverCount').textContent = data.total;
+    document.getElementById('countryCount').textContent = data.countries;
+    document.getElementById('updateTime').textContent = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('configsContainer').style.display = 'block';
+    document.getElementById('tgPromo').style.display = 'block';
+    renderConfigs(data);
+    feather.replace();
+    localStorage.setItem('axrion_configs', JSON.stringify({ data, timestamp: Date.now() }));
+  } catch(e) {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorState').style.display = 'block';
+    document.getElementById('errorMessage').textContent = e.message || 'Неизвестная ошибка';
+    const cached = localStorage.getItem('axrion_configs');
+    if (cached) {
+      try { const { data } = JSON.parse(cached); renderConfigs(data); feather.replace(); } catch(e2) {}
+    }
+  }
+}
+
+function copyConfig(btn) {
+  const raw = btn.getAttribute('data-config');
+  if (!raw) return;
+  const copy = function(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function() { showToast('✅ Конфиг скопирован!'); }).catch(fallback);
+    } else { fallback(); }
+    function fallback() {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); showToast('✅ Конфиг скопирован!'); } catch(e) { showToast('❌ Ошибка копирования'); }
+      document.body.removeChild(ta);
+    }
+  }; copy(raw);
+}
+
+function showQR(btn) {
+  const raw = btn.getAttribute('data-config');
+  if (!raw) return;
+  document.getElementById('qrLabel').textContent = 'Сканируй для импорта';
+  document.getElementById('qrModal').classList.add('active');
+  const container = document.getElementById('qrcode');
+  container.innerHTML = '';
+  const img = document.createElement('img');
+  img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=' + encodeURIComponent(raw);
+  img.alt = 'QR-код'; img.style.borderRadius = '12px'; img.style.width = '250px'; img.style.height = '250px';
+  img.onerror = function() { container.innerHTML = '<p style="color:#666;font-size:14px">Не удалось загрузить QR-код.<br>Используй кнопку 📋 для копирования.</p>'; };
+  container.appendChild(img);
+}
+
+function closeQR() { document.getElementById('qrModal').classList.remove('active'); }
+
+function copySubUrl() {
+  const input = document.getElementById('subUrlInput');
+  const text = input.value;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() { showToast('✅ Ссылка скопирована!'); }).catch(fallback);
+  } else { fallback(); }
+  function fallback() { input.select(); try { document.execCommand('copy'); showToast('✅ Ссылка скопирована!'); } catch(e) { showToast('❌ Ошибка копирования'); } }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._timer); t._timer = setTimeout(function() { t.classList.remove('show'); }, 2000);
+}
+
+// --- Proxy Checker ---
+
+function normalizeProxy(entry) {
+  let s = entry.trim();
+  if (!s) return null;
+  let proto = '', host, port;
+  if (s.includes('://')) { const parts = s.split('://'); proto = parts[0].toLowerCase(); s = parts[1]; }
+  const colon = s.lastIndexOf(':');
+  if (colon < 0) return null;
+  host = s.slice(0, colon);
+  port = parseInt(s.slice(colon + 1));
+  if (!host || isNaN(port) || port < 1 || port > 65535) return null;
+  return { raw: entry.trim(), proto, host, port };
+}
+
+function checkProxies() {
+  const input = document.getElementById('proxyInput');
+  const lines = input.value.split('\n');
+  const proxies = [];
+  for (const line of lines) { const p = normalizeProxy(line); if (p) proxies.push(p); }
+  if (proxies.length === 0) { showToast('❌ Нет валидных прокси'); return; }
+
+  const statusEl = document.getElementById('proxyStatus');
+  const resultsEl = document.getElementById('proxyResults');
+  resultsEl.innerHTML = '';
+  statusEl.textContent = '🔄 Проверяю ' + proxies.length + ' прокси...';
+  let done = 0;
+
+  const table = document.createElement('table');
+  table.className = 'proxy-table';
+  table.innerHTML = '<thead><tr><th>Прокси</th><th>Тип</th><th>Статус</th><th>Пинг</th></tr></thead><tbody></tbody>';
+  resultsEl.appendChild(table);
+  const tbody = table.querySelector('tbody');
+
+  for (let i = 0; i < proxies.length; i++) {
+    (function(idx, p) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + p.raw + '</td><td>' + (p.proto || 'http') + '</td><td class="proxy-status checking">⏳</td><td class="proxy-ping na">—</td>';
+      tbody.appendChild(tr);
+
+      const controller = new AbortController();
+      const tid = setTimeout(function() { controller.abort(); }, 5000);
+      const start = performance.now();
+      const url = p.port === 443 ? 'https://' + p.host + '/' : 'http://' + p.host + ':' + p.port + '/';
+
+      fetch(url, { mode: 'no-cors', signal: controller.signal, cache: 'no-store' })
+        .then(function() {
+          const ms = Math.round(performance.now() - start);
+          updateRow(idx, 'working', ms < 80 ? 'fast' : ms < 200 ? 'medium' : 'slow', ms + 'ms');
+        })
+        .catch(function() {
+          const c2 = new AbortController();
+          const t2 = setTimeout(function() { c2.abort(); }, 4000);
+          const s2 = performance.now();
+          fetch('http://' + p.host + ':' + p.port + '/', { mode: 'no-cors', signal: c2.signal, cache: 'no-store' })
+            .then(function() {
+              const ms = Math.round(performance.now() - s2);
+              updateRow(idx, 'working', ms < 80 ? 'fast' : ms < 200 ? 'medium' : 'slow', ms + 'ms');
+            })
+            .catch(function() { updateRow(idx, 'error', 'na', 'timeout'); })
+            .finally(function() { clearTimeout(t2); });
+        })
+        .finally(function() {
+          clearTimeout(tid);
+          done++;
+          if (done === proxies.length) statusEl.textContent = '✅ Готово: ' + proxies.length + ' прокси проверено';
+        });
+
+      function updateRow(idx, status, cls, text) {
+        const row = tbody.children[idx];
+        if (!row) return;
+        row.children[2].className = 'proxy-status ' + status;
+        row.children[2].textContent = status === 'working' ? '✅ Работает' : '❌ Не работает';
+        row.children[3].className = 'proxy-ping ' + cls;
+        row.children[3].textContent = text;
+      }
+    })(i, proxies[i]);
+  }
+}
+
+// --- MTProto ---
+
+function parseMTProto(entry) {
+  let s = entry.trim();
+  if (!s) return null;
+  let server, port, secret = '';
+  if (s.startsWith('tg://')) {
+    try { const u = new URL(s); server = u.searchParams.get('server'); port = u.searchParams.get('port'); secret = u.searchParams.get('secret') || ''; } catch(e) { return null; }
+  } else {
+    const parts = s.split(':');
+    if (parts.length < 2) return null;
+    server = parts[0]; port = parts[1]; secret = parts.slice(2).join(':') || '';
+  }
+  if (!server || !port) return null;
+  const pn = parseInt(port);
+  if (isNaN(pn) || pn < 1 || pn > 65535) return null;
+  let type = 'Обычный';
+  if (secret.startsWith('ee')) type = 'Обычный (obfs)';
+  else if (secret.startsWith('dd')) type = 'Fake TLS';
+  else if (secret) type = 'Секретный';
+  const tgLink = 'tg://proxy?server=' + server + '&port=' + port + (secret ? '&secret=' + secret : '');
+  return { raw: s, server, port: pn, secret, type, tgLink };
+}
+
+function checkMTProto() {
+  const input = document.getElementById('mtprotoInput');
+  const lines = input.value.split('\n');
+  const proxies = [];
+  for (const line of lines) { const p = parseMTProto(line); if (p) proxies.push(p); }
+  if (proxies.length === 0) { showToast('❌ Нет валидных MTProto прокси'); return; }
+
+  const statusEl = document.getElementById('mtprotoStatus');
+  const resultsEl = document.getElementById('mtprotoResults');
+  resultsEl.innerHTML = '';
+  statusEl.textContent = '🔄 Проверяю ' + proxies.length + ' MTProto прокси...';
+  let done = 0;
+
+  const table = document.createElement('table');
+  table.className = 'proxy-table mtproto-table';
+  table.innerHTML = '<thead><tr><th>Сервер</th><th>Порт</th><th>Тип</th><th>Статус</th><th>Пинг</th><th>Подключить</th></tr></thead><tbody></tbody>';
+  resultsEl.appendChild(table);
+  const tbody = table.querySelector('tbody');
+
+  for (let i = 0; i < proxies.length; i++) {
+    (function(idx, p) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + p.server + '</td><td>' + p.port + '</td><td>' + p.type + '</td><td class="proxy-status checking">⏳</td><td class="proxy-ping na">—</td><td><a class="tg-link-btn" href="' + p.tgLink + '" target="_blank">✈️ TG</a></td>';
+      tbody.appendChild(tr);
+
+      let connected = false;
+      const start = performance.now();
+      let attempts = 0;
+      const tid = setTimeout(function() { if (!connected) finalize(); }, 6000);
+
+      function finalize() {
+        const elapsed = Math.round(performance.now() - start);
+        if (connected) {
+          updateRow(idx, 'working', elapsed < 80 ? 'fast' : elapsed < 200 ? 'medium' : 'slow', elapsed + 'ms');
+        } else {
+          updateRow(idx, 'error', 'na', 'timeout');
+        }
+        done++;
+        if (done === proxies.length) {
+          const ok = tbody.querySelectorAll('.proxy-status.working').length;
+          statusEl.textContent = '✅ Готово: ' + ok + '/' + proxies.length + ' доступно';
+        }
+      }
+
+      function tryConnect() {
+        if (connected) return;
+        const c = new AbortController();
+        const t = setTimeout(function() { c.abort(); }, 3000);
+        const url = p.port === 443 ? 'https://' + p.server + '/' : 'http://' + p.server + ':' + p.port + '/';
+        fetch(url, { mode: 'no-cors', signal: c.signal, cache: 'no-store' })
+          .then(function() { connected = true; clearTimeout(t); clearTimeout(tid); finalize(); })
+          .catch(function() {
+            clearTimeout(t); attempts++;
+            if (attempts < 3 && !connected) setTimeout(tryConnect, 300);
+            else if (!connected) {
+              const img = new Image();
+              const it = setTimeout(function() { if (!connected) finalize(); }, 3000);
+              img.onload = function() { connected = true; clearTimeout(it); clearTimeout(tid); finalize(); };
+              img.onerror = function() { connected = true; clearTimeout(it); clearTimeout(tid); finalize(); };
+              img.src = 'http://' + p.server + ':' + p.port + '/check_' + Date.now();
+            }
+          });
+      }
+
+      tryConnect();
+
+      function updateRow(idx, status, cls, text) {
+        const row = tbody.children[idx];
+        if (!row) return;
+        row.children[3].className = 'proxy-status ' + status;
+        row.children[3].textContent = status === 'working' ? '✅ Доступен' : '⚠️ Не отвечает';
+        row.children[4].className = 'proxy-ping ' + cls;
+        row.children[4].textContent = text;
+      }
+    })(i, proxies[i]);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() { fetchConfigs(); feather.replace(); });
+document.getElementById('qrModal').addEventListener('click', function(e) { if (e.target === this) closeQR(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeQR(); });
+</script>
+</body>
+</html>
