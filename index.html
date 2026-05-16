@@ -75,6 +75,7 @@ body::after {
 
 .subtitle { color: var(--text2); font-size: 14px; margin-top: 6px; font-weight: 400; }
 .header-links { display: flex; justify-content: center; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+.header-links .btn { white-space: nowrap; }
 
 .btn {
   display: inline-flex;
@@ -246,7 +247,7 @@ body::after {
 
 .config-server {
   font-size: 13px; color: var(--text2);
-  font-family: 'Courier New', monospace; word-break: break-all;
+  font-family: 'Courier New', monospace;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .config-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
@@ -261,7 +262,7 @@ body::after {
 .tag-reality { background: rgba(196,181,253,0.12); color: #c4b5fd; }
 .tag-tcp { background: rgba(255,100,100,0.12); color: #ff6464; }
 
-.config-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-left: auto; }
+.config-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-left: auto; flex-shrink: 0; }
 .config-actions .btn { padding: 6px 14px; font-size: 12px; }
 
 /* Modal */
@@ -350,6 +351,7 @@ body::after {
 .checker-status { font-size: 13px; color: var(--text2); margin: 12px 0; }
 
 .proxy-table { width: 100%; border-collapse: separate; border-spacing: 0 4px; }
+.proxy-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 4px; }
 .proxy-table th {
   font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
   color: var(--text2); padding: 8px 12px; text-align: left; font-weight: 600;
@@ -387,21 +389,103 @@ body::after {
 .tab-btn .feather { width: 16px; height: 16px; margin-right: 4px; }
 
 /* Responsive */
-@media (max-width: 600px) {
-  .wrapper { padding: 16px 12px; }
-  .header { padding: 24px 0; }
-  .logo { font-size: 24px; }
-  .stats { gap: 20px; padding: 16px; }
-  .stat-value { font-size: 22px; }
-  .sub-box { padding: 16px; }
-  .sub-url-row { flex-direction: column; }
-  .config-top { flex-direction: column; }
-  .config-actions { margin-top: 10px; margin-left: 0; }
-  .tg-promo { padding: 24px 16px; }
-  .tg-promo h2 { font-size: 18px; }
+@media (max-width: 768px) {
+  .header { padding: 20px 0; }
+  .logo { font-size: 26px; }
+  .stats { gap: 20px; padding: 14px 16px; }
+  .tab-btn { font-size: 12px; padding: 8px 12px; }
+  .config-top { gap: 10px; }
   .proxy-table { font-size: 12px; }
-  .proxy-table td, .proxy-table th { padding: 8px; }
-  .mtproto-table td, .mtproto-table th { padding: 8px; font-size: 12px; }
+  .proxy-table td, .proxy-table th { padding: 8px 10px; }
+  .mtproto-table td, .mtproto-table th { padding: 8px 10px; font-size: 12px; }
+  .tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+@media (max-width: 600px) {
+  .wrapper { padding: 10px 8px; }
+  .header { padding: 14px 0; }
+  .logo { font-size: 20px; }
+  .subtitle { font-size: 11px; margin-top: 4px; }
+  .header-links { gap: 6px; margin-top: 12px; }
+  .header-links .btn { padding: 6px 14px; font-size: 11px; border-radius: 8px; gap: 4px; }
+  .header-links .btn .feather { width: 14px; height: 14px; }
+  .header-links .btn svg { width: 14px; height: 14px; }
+  .stats { gap: 12px; padding: 10px 12px; margin-bottom: 16px; border-radius: 12px; }
+  .stat-value { font-size: 18px; }
+  .stat-label { font-size: 9px; letter-spacing: 0.5px; }
+  .sub-box { padding: 12px 14px; margin-bottom: 16px; border-radius: 12px; }
+  .sub-box-title { font-size: 12px; }
+  .sub-url-row { flex-direction: column; gap: 6px; }
+  .sub-url-row input { font-size: 10px; padding: 8px 10px; border-radius: 6px; }
+  .sub-url-row .btn { width: 100%; justify-content: center; padding: 8px; }
+  .tabs { gap: 2px; padding: 3px; border-radius: 10px; margin-bottom: 16px; }
+  .tab-btn { font-size: 10px; padding: 6px 6px; max-width: none; min-height: 36px; border-radius: 8px; }
+  .tab-btn .feather { width: 12px; height: 12px; margin-right: 2px; }
+  .country-section { margin-bottom: 20px; }
+  .country-header { padding: 8px 0; margin-bottom: 8px; gap: 8px; }
+  .country-flag { font-size: 18px; }
+  .country-name { font-size: 14px; }
+  .country-count { font-size: 10px; padding: 2px 8px; }
+  .config-top { flex-direction: column; align-items: stretch; gap: 8px; }
+  .config-icon { width: 28px; height: 28px; font-size: 13px; align-self: flex-start; }
+  .config-icon .feather { width: 16px; height: 16px; }
+  .config-card { padding: 10px 12px; margin-bottom: 6px; border-radius: 10px; }
+  .config-proto { font-size: 10px; }
+  .config-server { font-size: 11px; white-space: normal; word-break: break-all; }
+  .config-tags { gap: 3px; margin-top: 4px; }
+  .tag { font-size: 8px; padding: 1px 5px; }
+  .config-actions { margin-top: 6px; margin-left: 0; gap: 4px; }
+  .config-actions .btn { font-size: 10px; padding: 5px 10px; min-height: 32px; border-radius: 6px; }
+  .config-actions .btn .feather { width: 12px; height: 12px; }
+  .tg-promo { padding: 16px 12px; margin-bottom: 20px; border-radius: 12px; }
+  .tg-promo-icon { font-size: 28px; margin-bottom: 8px; }
+  .tg-promo-icon .feather { width: 28px; height: 28px; }
+  .tg-promo h2 { font-size: 15px; }
+  .tg-promo p { font-size: 11px; margin-bottom: 14px; }
+  .tg-promo .header-links .btn { padding: 6px 12px; font-size: 11px; }
+  .import-section { margin-bottom: 20px; }
+  .guide-content { padding: 12px 14px !important; margin-bottom: 12px !important; }
+  .guide-content ol { font-size: 12px !important; padding-left: 16px !important; }
+  .guide-content li { margin-bottom: 4px; }
+  .checker-box { padding: 20px 10px; margin-bottom: 16px; }
+  .checker-box textarea { height: 120px; font-size: 11px; padding: 10px; border-radius: 8px; }
+  .checker-box p { font-size: 12px !important; }
+  .checker-actions { gap: 8px; }
+  .checker-actions .btn { font-size: 12px; padding: 8px 16px; min-height: 40px; }
+  .checker-status { font-size: 11px; margin: 8px 0; }
+  .proxy-table { font-size: 10px; }
+  .proxy-table th { font-size: 9px; padding: 4px 6px; }
+  .proxy-table td { padding: 5px 6px; font-size: 10px; }
+  .mtproto-table th { font-size: 9px; padding: 4px 6px; }
+  .mtproto-table td { padding: 5px 6px; font-size: 10px; }
+  .proxy-ping { font-size: 10px; }
+  .tg-link-btn { font-size: 10px; padding: 3px 8px; }
+  .modal { padding: 20px; border-radius: 12px; margin: 10px; }
+  .modal h3 { font-size: 15px; }
+  .modal p { font-size: 11px; margin-bottom: 14px; }
+  #qrcode img { width: 200px !important; height: 200px !important; }
+  .footer { font-size: 10px; padding: 14px 0; margin-top: 8px; }
+  #toggleGuideBtn { font-size: 13px !important; padding: 8px 24px !important; }
+  .btn { gap: 4px; }
+}
+
+@media (max-width: 400px) {
+  .wrapper { padding: 8px 6px; }
+  .header-links { flex-direction: column; align-items: center; }
+  .header-links .btn { width: 100%; justify-content: center; padding: 8px 14px; }
+  .tabs { flex-wrap: nowrap; }
+  .tab-btn { font-size: 9px; padding: 5px 4px; min-height: 32px; }
+  .tab-btn .feather { width: 10px; height: 10px; margin-right: 1px; }
+  .country-flag { font-size: 16px; }
+  .country-name { font-size: 12px; }
+  .stats { gap: 8px; padding: 8px 10px; }
+  .stat-value { font-size: 16px; }
+  .config-actions .btn { font-size: 9px; padding: 4px 6px; min-height: 28px; }
+  .config-actions .btn .feather { width: 10px; height: 10px; }
+  .checker-box textarea { height: 100px; font-size: 10px; }
+  .proxy-table td, .proxy-table th { padding: 3px 4px; font-size: 9px; }
+  .mtproto-table td, .mtproto-table th { padding: 3px 4px; font-size: 9px; }
+  #qrcode img { width: 160px !important; height: 160px !important; }
 }
 </style>
 </head>
@@ -445,6 +529,9 @@ body::after {
         <input type="text" id="subUrlInput" readonly value="https://raw.githubusercontent.com/AXRIONLABS/VPN/refs/heads/main/VPN-%40AXRION_LABS.txt">
         <button class="btn btn-primary btn-sm" onclick="copySubUrl()" style="white-space:nowrap"><i data-feather="copy" style="width:14px;height:14px"></i> Копировать</button>
       </div>
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+        <a href="happ://add/https://clck.ru/3TgV5z" class="btn btn-tg btn-sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> HAPP</a>
+      </div>
     </div>
 
     <div id="loadingState" class="state-box">
@@ -453,7 +540,7 @@ body::after {
     </div>
 
     <div id="errorState" class="error-box" style="display:none">
-      <h3>⚠️ Ошибка загрузки</h3>
+      <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-4px;color:#ff6b6b"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Ошибка загрузки</h3>
       <p id="errorMessage">Не удалось получить конфиги. Попробуйте позже.</p>
       <button class="btn btn-primary btn-sm" onclick="fetchConfigs()">Повторить</button>
     </div>
@@ -539,7 +626,7 @@ body::after {
 <!-- QR Modal -->
 <div class="modal-overlay" id="qrModal">
   <div class="modal">
-    <h3>📲 QR-код</h3>
+    <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-4px"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 17h2v4M17 14h3"/><rect x="15" y="15" width="2" height="2"/><rect x="20" y="15" width="2" height="2"/><rect x="15" y="20" width="2" height="2"/></svg> QR-код</h3>
     <p id="qrLabel">Отсканируй в приложении VPN</p>
     <div id="qrcode"></div>
     <button class="btn btn-secondary modal-close" onclick="closeQR()">Закрыть</button>
@@ -576,44 +663,38 @@ function parseConfigs(text) {
   let currentCountry = null;
   for (const line of lines) {
     const trimmed = line.trim();
-    if (!trimmed) continue;
-    const countryMarker = trimmed.match(/^#([\u{1F1E6}-\u{1F1FF}]{2})/u);
-    if (countryMarker) { currentCountry = countryMarker[1]; continue; }
+    if (!trimmed || trimmed.startsWith('#')) {
+      const countryMarker = trimmed.match(/^#([\u{1F1E6}-\u{1F1FF}]{2})/u);
+      if (countryMarker) { currentCountry = countryMarker[1]; }
+      continue;
+    }
     if (trimmed.startsWith('vless://') || trimmed.startsWith('ss://')) {
-      const protocol = trimmed.startsWith('vless://') ? 'VLESS' : 'Shadowsocks';
-      const namePart = trimmed.split('#')[1] || '';
+      const protocol = trimmed.startsWith('vless://') ? 'VLESS' : 'SS';
+      const hashIdx = trimmed.indexOf('#');
+      const body = hashIdx > -1 ? trimmed.slice(0, hashIdx) : trimmed;
+      const namePart = hashIdx > -1 ? trimmed.slice(hashIdx + 1) : '';
       const flags = detectFlags(namePart);
       const country = flags.length > 0 ? flags[0] : currentCountry;
       let host = '', port = '', params = {};
       try {
-        const body = trimmed.split('#')[0];
-        if (protocol === 'VLESS') {
-          const afterProto = body.slice(8);
-          const atIdx = afterProto.indexOf('@');
-          if (atIdx > -1) {
-            const afterAt = afterProto.slice(atIdx + 1);
-            const colonIdx = afterAt.indexOf(':');
-            const qIdx = afterAt.indexOf('?');
-            if (qIdx > -1) {
-              host = afterAt.slice(0, colonIdx > -1 && colonIdx < qIdx ? colonIdx : qIdx);
-              port = afterAt.slice((colonIdx > -1 && colonIdx < qIdx ? colonIdx + 1 : 0), qIdx);
-              const qs = new URLSearchParams(afterAt.slice(qIdx + 1));
-              qs.forEach((v, k) => params[k] = v);
-            } else if (colonIdx > -1) { host = afterAt.slice(0, colonIdx); port = afterAt.slice(colonIdx + 1); }
-          }
-        } else {
-          const afterProto = body.slice(5);
-          const atIdx = afterProto.indexOf('@');
-          if (atIdx > -1) { host = afterProto.slice(atIdx + 1).split(':')[0]; port = afterProto.slice(atIdx + 1).split(':')[1] || ''; }
+        const atIdx = body.indexOf('@');
+        if (atIdx > -1) {
+          const afterAt = body.slice(atIdx + 1);
+          const qIdx = afterAt.indexOf('?');
+          const addrPart = qIdx > -1 ? afterAt.slice(0, qIdx) : afterAt;
+          const colonIdx = addrPart.lastIndexOf(':');
+          if (colonIdx > -1) { host = addrPart.slice(0, colonIdx); port = addrPart.slice(colonIdx + 1); }
+          if (qIdx > -1) { new URLSearchParams(afterAt.slice(qIdx + 1)).forEach((v, k) => params[k] = v); }
         }
       } catch(e) {}
+      if (!host) continue;
       const tags = [];
       if (params.security === 'tls' || params.security === 'reality') tags.push(params.security);
       if (params.type) tags.push(params.type);
       if (params.network) tags.push(params.network);
       if (params.encryption && params.encryption !== 'none') tags.push(params.encryption);
       const cleanName = namePart.replace(/[\u{1F1E6}-\u{1F1FF}]{2}/gu, '').replace(/TG:\s*@AXRION_LABS/g, '').trim();
-      configs.push({ raw: trimmed, protocol, country: country || '🌍', host, port, name: cleanName || protocol, tags, params });
+      configs.push({ raw: trimmed, protocol, country: country || '🌍', host, port: port || '', name: cleanName || protocol, tags, params });
     }
   }
   const grouped = {};
@@ -635,8 +716,8 @@ function toggleGuide() {
   guide.style.display = isHidden ? 'block' : 'none';
   guide.classList.toggle('guide-active', isHidden);
   btn.classList.toggle('guide-active', isHidden);
-  btn.textContent = isHidden ? '✖ Скрыть инструкцию' : '📋 Инструкция';
-  setTimeout(function() { feather.replace(); }, 50);
+  btn.innerHTML = isHidden ? '<i data-feather="x-circle" style="width:16px;height:16px"></i> Скрыть инструкцию' : '<i data-feather="book-open" style="width:16px;height:16px"></i> Инструкция';
+  setTimeout(function() { feather.replace(); }, 0);
 }
 
 function renderConfigs(data) {
@@ -717,7 +798,7 @@ function showQR(btn) {
   container.innerHTML = '';
   const img = document.createElement('img');
   img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=' + encodeURIComponent(raw);
-  img.alt = 'QR-код'; img.style.borderRadius = '12px'; img.style.width = '250px'; img.style.height = '250px';
+  img.alt = 'QR-код'; img.loading = 'lazy'; img.style.borderRadius = '12px'; img.style.width = '250px'; img.style.height = '250px';
   img.onerror = function() { container.innerHTML = '<p style="color:#666;font-size:14px">Не удалось загрузить QR-код.<br>Используй кнопку 📋 для копирования.</p>'; };
   container.appendChild(img);
 }
@@ -770,7 +851,10 @@ function checkProxies() {
   const table = document.createElement('table');
   table.className = 'proxy-table';
   table.innerHTML = '<thead><tr><th>Прокси</th><th>Тип</th><th>Статус</th><th>Пинг</th></tr></thead><tbody></tbody>';
-  resultsEl.appendChild(table);
+  const wrap = document.createElement('div');
+  wrap.className = 'proxy-table-wrap';
+  wrap.appendChild(table);
+  resultsEl.appendChild(wrap);
   const tbody = table.querySelector('tbody');
 
   for (let i = 0; i < proxies.length; i++) {
@@ -859,13 +943,16 @@ function checkMTProto() {
   const table = document.createElement('table');
   table.className = 'proxy-table mtproto-table';
   table.innerHTML = '<thead><tr><th>Сервер</th><th>Порт</th><th>Тип</th><th>Статус</th><th>Пинг</th><th>Подключить</th></tr></thead><tbody></tbody>';
-  resultsEl.appendChild(table);
+  const wrap = document.createElement('div');
+  wrap.className = 'proxy-table-wrap';
+  wrap.appendChild(table);
+  resultsEl.appendChild(wrap);
   const tbody = table.querySelector('tbody');
 
   for (let i = 0; i < proxies.length; i++) {
     (function(idx, p) {
       const tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + p.server + '</td><td>' + p.port + '</td><td>' + p.type + '</td><td class="proxy-status checking">⏳</td><td class="proxy-ping na">—</td><td><a class="tg-link-btn" href="' + p.tgLink + '" target="_blank">✈️ TG</a></td>';
+      tr.innerHTML = '<td>' + p.server + '</td><td>' + p.port + '</td><td>' + p.type + '</td><td class="proxy-status checking">⏳</td><td class="proxy-ping na">—</td><td><a class="tg-link-btn" href="' + p.tgLink + '" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px"><path d="M21.5 2.5L2 11.5l7 2.5 3 7 9.5-18.5z"/></svg> TG</a></td>';
       tbody.appendChild(tr);
 
       let connected = false;
@@ -921,7 +1008,7 @@ function checkMTProto() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function() { fetchConfigs(); feather.replace(); });
+document.addEventListener('DOMContentLoaded', function() { fetchConfigs(); });
 document.getElementById('qrModal').addEventListener('click', function(e) { if (e.target === this) closeQR(); });
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeQR(); });
 </script>
